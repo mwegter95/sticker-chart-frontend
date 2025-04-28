@@ -1,0 +1,13 @@
+<table>
+  <thead>
+    <tr><th>Habit</th><th *ngFor="let d of dates">{{ d | date:'MMM d' }}</th></tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let h of habits">
+      <td>{{ h.name }}</td>
+      <td *ngFor="let d of dates">
+        <button (click)="toggle(h,d)">{{ isCompleted(h,d)?'★':'☆' }}</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

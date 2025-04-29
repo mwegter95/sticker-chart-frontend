@@ -1,4 +1,33 @@
-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: center; }
-button { background: none; border: none; font-size: 1.5rem; cursor: pointer; }
-button:hover { color: gold; }
+/* src/app/components/sticker-chart/sticker-chart.component.scss */
+
+/* overall layout */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+/* star button base styling */
+button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s;
+}
+
+/* empty (not clicked) */
+button.empty {
+  color: lightgray;
+}
+
+/* filled (clicked) */
+button.filled {
+  color: gold;
+}

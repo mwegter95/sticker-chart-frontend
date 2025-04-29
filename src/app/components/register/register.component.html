@@ -1,3 +1,4 @@
+<!-- src/app/components/register/register.component.html -->
 <form (ngSubmit)="onSubmit()">
   <div>
     <label for="username">Username</label>
@@ -8,7 +9,7 @@
     <input id="password" type="password" [(ngModel)]="password" name="password" required />
   </div>
   <div>
-    <label for="confirm">Confirm Password</label>
+    <label for="confirm">Confirm</label>
     <input id="confirm" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required />
   </div>
   <button type="submit">Register</button>

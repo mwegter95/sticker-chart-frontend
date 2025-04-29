@@ -1,16 +1,20 @@
+// src/app/components/sticker-chart/sticker-chart.component.ts
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; // for *ngFor, *ngIf, date pipe, etc
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HabitService, Habit } from '../../services/habit.service';
 
 @Component({
   selector: 'app-sticker-chart',
   standalone: true,
-  imports: [CommonModule], // <-- include CommonModule
+  imports: [CommonModule, FormsModule],
   templateUrl: './sticker-chart.component.html',
+  styleUrls: ['./sticker-chart.component.scss'],
 })
 export class StickerChartComponent implements OnInit {
   habits: Habit[] = [];
   dates: Date[] = [];
+  newHabitName = '';
 
   constructor(private habitSvc: HabitService) {}
 
@@ -32,6 +36,14 @@ export class StickerChartComponent implements OnInit {
       (_, i) =>
         new Date(today.getFullYear(), today.getMonth(), today.getDate() + i)
     );
+  }
+
+  createHabit() {
+    if (!this.newHabitName.trim()) return;
+    this.habitSvc.createHabit(this.newHabitName).subscribe(() => {
+      this.newHabitName = '';
+      this.fetchHabits();
+    });
   }
 
   isCompleted(h: Habit, date: Date) {

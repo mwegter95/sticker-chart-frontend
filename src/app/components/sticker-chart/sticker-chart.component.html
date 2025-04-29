@@ -1,12 +1,34 @@
+<!-- src/app/components/sticker-chart/sticker-chart.component.html -->
+<h2>Your Habits</h2>
+
+<form (ngSubmit)="createHabit()">
+  <input
+    [(ngModel)]="newHabitName"
+    name="newHabitName"
+    placeholder="New Habit name"
+    required
+  />
+  <button type="submit">Add Habit</button>
+</form>
+
 <table>
   <thead>
-    <tr><th>Habit</th><th *ngFor="let d of dates">{{ d | date:'MMM d' }}</th></tr>
+    <tr>
+      <th>Habit</th>
+      <th *ngFor="let d of dates">{{ d | date:'MMM d' }}</th>
+    </tr>
   </thead>
   <tbody>
     <tr *ngFor="let h of habits">
       <td>{{ h.name }}</td>
       <td *ngFor="let d of dates">
-        <button (click)="toggle(h,d)">{{ isCompleted(h,d)?'★':'☆' }}</button>
+        <button
+          type="button"
+          [ngClass]="{ filled: isCompleted(h, d), empty: !isCompleted(h, d) }"
+          (click)="toggle(h, d)"
+        >
+          ★
+        </button>
       </td>
     </tr>
   </tbody>

@@ -1,1 +1,1 @@
-web: npx serve -s dist/sticker-chart-frontend -l $PORT
+web: npx serve -s dist/sticker-chart-frontend/browser -l $PORT

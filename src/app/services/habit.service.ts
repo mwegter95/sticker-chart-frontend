@@ -1,3 +1,4 @@
+// src/app/services/habit.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -29,17 +30,35 @@ export class HabitService {
   createHabit(name: string): Observable<Habit> {
     return this.http.post<Habit>(
       `${this.api}/create`,
-      JSON.stringify({ name }), // wrap in object if your endpoint expects a DTO
+      JSON.stringify({ name }),
       { headers: this.jsonHeaders }
     );
   }
 
-  toggleEntry(habitId: number, date: string): Observable<HabitEntry> {
-    // send the raw ISO string as JSON, with the correct header
+  addSticker(habitId: number, date: string): Observable<HabitEntry> {
     return this.http.post<HabitEntry>(
       `${this.api}/${habitId}/stickers`,
       JSON.stringify(date),
       { headers: this.jsonHeaders }
     );
+  }
+
+  removeSticker(habitId: number, date: string): Observable<void> {
+    return this.http.request<void>(
+      'delete',
+      `${this.api}/${habitId}/stickers`,
+      { body: JSON.stringify(date), headers: this.jsonHeaders }
+    );
+  }
+
+  // now returns Observable<any> unambiguously
+  toggleSticker(
+    habitId: number,
+    date: string,
+    remove: boolean
+  ): Observable<any> {
+    return remove
+      ? this.removeSticker(habitId, date)
+      : this.addSticker(habitId, date);
   }
 }

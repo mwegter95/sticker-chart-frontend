@@ -1,35 +1,87 @@
 <!-- src/app/components/sticker-chart/sticker-chart.component.html -->
-<h2>Your Habits</h2>
+<div *ngIf="!selectedHabit">
+  <h2>Your Habits</h2>
 
-<form (ngSubmit)="createHabit()">
-  <input
-    [(ngModel)]="newHabitName"
-    name="newHabitName"
-    placeholder="New Habit name"
-    required
-  />
-  <button type="submit">Add Habit</button>
-</form>
+  <form (ngSubmit)="createHabit()">
+    <input
+      [(ngModel)]="newHabitName"
+      name="newHabitName"
+      placeholder="New Habit"
+      required
+    />
+    <button type="submit">Add Habit</button>
+  </form>
 
-<table>
-  <thead>
-    <tr>
-      <th>Habit</th>
-      <th *ngFor="let d of dates">{{ d | date:'MMM d' }}</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let h of habits">
-      <td>{{ h.name }}</td>
-      <td *ngFor="let d of dates">
-        <button
-          type="button"
-          [ngClass]="{ filled: isCompleted(h, d), empty: !isCompleted(h, d) }"
-          (click)="toggle(h, d)"
-        >
-          ★
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table>
+    <thead>
+      <tr>
+        <th>Habit</th>
+        <th *ngFor="let d of weekDates">{{ d | date:'EEE d' }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let h of habits">
+        <td>
+          <button class="link-btn" (click)="selectHabit(h)">{{ h.name }}</button>
+        </td>
+        <td *ngFor="let d of weekDates">
+          <!-- Star 1 always -->
+          <button
+            class="star-btn"
+            [class.filled]="isFilled(h, d, 1)"
+            (click)="onStarClick(h, d, 1)"
+          >★</button>
+
+          <!-- Star 2 if star 1 filled -->
+          <button
+            *ngIf="isFilled(h, d, 1)"
+            class="star-btn"
+            [class.filled]="isFilled(h, d, 2)"
+            (click)="onStarClick(h, d, 2)"
+          >★</button>
+
+          <!-- Star 3 if star 2 filled -->
+          <button
+            *ngIf="isFilled(h, d, 2)"
+            class="star-btn"
+            [class.filled]="isFilled(h, d, 3)"
+            (click)="onStarClick(h, d, 3)"
+          >★</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="selectedHabit">
+  <button (click)="backToWeek()">← Back to Week</button>
+  <h2>
+    {{ selectedHabit.name }} —
+    {{ viewMonth | date:'MMMM yyyy' }}
+  </h2>
+  <button (click)="prevMonth()">Prev</button>
+  <button (click)="nextMonth()">Next</button>
+
+  <table>
+    <thead>
+      <tr><th *ngFor="let wd of weekdays">{{ wd }}</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of monthRows">
+        <td *ngFor="let d of row">
+          <div [class.outside]="d.getMonth() !== viewMonth.getMonth()">
+            {{ d.getDate() }}
+          </div>
+          <div>
+            <button
+              class="star-btn small"
+              *ngFor="let star of [1,2,3]"
+              [class.filled]="isFilled(selectedHabit!, d, star)"
+              (click)="onStarClick(selectedHabit!, d, star)"
+            >★</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

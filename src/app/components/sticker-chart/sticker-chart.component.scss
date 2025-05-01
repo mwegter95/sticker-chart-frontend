@@ -1,6 +1,13 @@
 /* src/app/components/sticker-chart/sticker-chart.component.scss */
 
-/* overall layout */
+.link-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -12,22 +19,23 @@ th, td {
   text-align: center;
 }
 
-/* star button base styling */
-button {
+.star-btn {
   background: none;
   border: none;
   font-size: 1.5rem;
+  color: lightgray;
   cursor: pointer;
-  padding: 0;
+  padding: 0 0.1rem;
   transition: color 0.2s;
 }
-
-/* empty (not clicked) */
-button.empty {
-  color: lightgray;
+.star-btn.filled {
+  color: gold;
 }
 
-/* filled (clicked) */
-button.filled {
-  color: gold;
+.star-btn.small {
+  font-size: 1rem;
+}
+
+.outside {
+  color: #aaa;
 }

@@ -1,0 +1,7 @@
+{
+  "root": "dist/sticker-chart-frontend",
+  "clean_urls": false,
+  "routes": {
+    "/**": "index.html"
+  }
+}

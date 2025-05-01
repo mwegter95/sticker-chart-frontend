@@ -3,10 +3,13 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "serve -s dist/sticker-chart-frontend -l $PORT",,
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "build": "ng build --configuration=production",
+    "test": "ng test",
+    "heroku-postbuild": "npm run build -- --configuration=production",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
@@ -18,6 +21,7 @@
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
     "rxjs": "~7.8.0",
+    "serve": "^14.2.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },

@@ -8,7 +8,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "serve -s dist/sticker-chart-frontend -l $PORT",
+    "start": "serve -s dist/sticker-chart-frontend/browser -l $PORT",
     "watch": "ng build --watch --configuration development",
     "build": "ng build --configuration=production",
     "test": "ng test",
